@@ -1,0 +1,44 @@
+div {
+    margin: 10vw auto;
+    padding: 4vw;
+    width: 75%;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    background-color: white;
+    border-style: solid;
+    opacity: 75%;
+    transition: linear 1s;
+}
+
+div:hover {
+    opacity: 1;
+}
+
+input { 
+    font-size: 3vw;
+    border: dashed;
+    display: block;
+}
+label {
+    display: block;
+    font-size: 2vw;
+}
+
+
+button {
+    padding: 1vw;
+    background-color: black;
+    color: white;
+}
+
+button:hover {
+    background-color: #454545;
+}
+
+@media only screen and (min-width: 700px) {
+    button {
+        font-size: 4em;
+    }
+  }
+

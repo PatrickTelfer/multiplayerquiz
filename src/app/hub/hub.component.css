@@ -1,0 +1,40 @@
+div {
+    margin: 10vw auto;
+    padding: 4vw;
+    width: 75%;
+    display: flex;
+    justify-content: space-evenly;
+    background-color: white;
+    border-style: solid;
+    opacity: 50%;
+    transition: linear 0.5s;
+}
+
+div:hover {
+    opacity: 1;
+}
+
+button {
+    padding: 1vw;
+    background-color: black;
+    color: white;
+}
+
+.highlight {
+    background-color: orange;
+}
+
+button:hover {
+    background-color: #454545;
+}
+
+@media only screen and (min-width: 1200px) {
+    button {
+        font-size: 3em;
+    }
+  }
+
+h1 {
+    font-size: 3em;
+}
+
