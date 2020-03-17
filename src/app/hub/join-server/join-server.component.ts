@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { HostService } from '../host.service';
-import { User } from '../models/user.model';
+import { HostService } from '../../host.service';
+import { User } from '../../models/user.model';
 import { FormBuilder } from '@angular/forms'
 @Component({
   selector: 'app-join-server',

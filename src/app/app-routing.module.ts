@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { QuizListComponent } from './quiz-list/quiz-list.component';
+import { QuizListComponent } from './hub/quiz-list/quiz-list.component';
 import { HubComponent } from './hub/hub.component';
-import { JoinServerComponent } from './join-server/join-server.component';
-import { LobbyComponent } from './lobby/lobby.component';
+import { JoinServerComponent } from './hub/join-server/join-server.component';
+import { LobbyComponent } from './hub/join-server/lobby/lobby.component';
 
 
 const routes: Routes = [
