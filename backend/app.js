@@ -4,12 +4,17 @@ const bodyParser = require('body-parser');
 const app = express();
 
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended: false}))
+app.use(bodyParser.urlencoded({extended: false}));
+
+
 
 app.use((req, res, next) => {
     res.setHeader(
-        'Access-Control-Allow-Origin', '*'
+        'Access-Control-Allow-Origin', 'http://localhost:4200'
     );
+    res.setHeader(
+        'Access-Control-Allow-Credentials', 'true'
+    )
     res.setHeader(
         'Access-Control-Allow-Headers', 
         'Origin, X-Requested-With, Content-Type, Accept'
@@ -19,14 +24,5 @@ app.use((req, res, next) => {
     );
     next();
 });
-
-// let joinedUsers = [];
-
-// app.post('/api/join', (req, res, next) => {
-
-// });
-
-
-
 
 module.exports = app;

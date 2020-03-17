@@ -1,1 +1,7 @@
-<p>lobby works!</p>
+<h2>You are currently joined on server: {{currentServer}}</h2>
+
+<ul>
+    <li *ngFor="let user of users">
+        <p>{{user.name}}</p>
+    </li>
+</ul>
