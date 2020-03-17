@@ -1,4 +1,4 @@
-div {
+form {
     margin: 10vw auto;
     padding: 4vw;
     width: 75%;
@@ -11,15 +11,16 @@ div {
     transition: linear 1s;
 }
 
-div:hover {
+form:hover {
     opacity: 1;
 }
 
 input { 
-    font-size: 3vw;
+    font-size: 2vw;
     border: dashed;
     display: block;
 }
+
 label {
     display: block;
     font-size: 2vw;
@@ -41,4 +42,8 @@ button:hover {
         font-size: 4em;
     }
   }
+
+input.ng-invalid.ng-touched {
+    border-color: red;
+}
 

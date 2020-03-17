@@ -1,6 +1,16 @@
 
-<div>
-    <label for="s">Enter a valid server ID</label>
-    <input [(ngModel)]="serverId" id="s"required>
-    <button (click)="join()">Join</button>
-</div>
+<form [formGroup]="joinForm"
+    (ngSubmit)="onSubmit(joinForm.value)">
+
+    <div>
+        <label for="s">Enter a valid server ID</label>
+        <input id="s" formControlName="serverId" required>
+    </div>
+
+    <div>
+        <label for="n">Enter a name</label>
+        <input id="n" formControlName="name" required>
+    </div>
+    
+    <button type="submit">Join</button>
+</form>

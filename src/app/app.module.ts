@@ -11,6 +11,7 @@ import { LobbyComponent } from './lobby/lobby.component';
 import { HttpClientModule } from '@angular/common/http';
 import { JoinServerComponent } from './join-server/join-server.component';
 import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
+import { ReactiveFormsModule } from '@angular/forms'
  
 const config: SocketIoConfig = { url: 'http://localhost:3000', options: {} };
 
@@ -28,6 +29,7 @@ const config: SocketIoConfig = { url: 'http://localhost:3000', options: {} };
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
+    ReactiveFormsModule,
     SocketIoModule.forRoot(config),
   ],
   providers: [],

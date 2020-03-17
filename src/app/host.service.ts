@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { User } from './models/user.model';
 import { Socket } from 'ngx-socket-io';
 import { UserService } from './user.service';
+import { Router } from '@angular/router';
 
 
 @Injectable({
@@ -12,7 +13,10 @@ import { UserService } from './user.service';
 export class HostService implements OnDestroy {
   connected: boolean;
   joinId: string;
-  constructor(private socket: Socket, private UserService: UserService) {
+  constructor(
+    private socket: Socket, 
+    private UserService: UserService,
+    private router: Router) {
 
   }
 
@@ -24,6 +28,7 @@ export class HostService implements OnDestroy {
         console.log('new users: ', users);
         this.UserService.setUsers(users);
         this.connected = true;
+        this.router.navigate(['/lobby'])
       })
     }
       
