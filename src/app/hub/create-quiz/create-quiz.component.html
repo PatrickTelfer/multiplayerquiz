@@ -1,0 +1,81 @@
+
+<form (ngSubmit)="onSubmit(quizForm)" #quizForm="ngForm">
+
+    <div class="container orange">
+        <label for="quizTitle">
+            QUIZ TITLE:
+        </label>
+        <input type="text" name="quizTitle" id="quizTitle" required
+            [(ngModel)]="model.title">
+    </div>
+
+    <ul>
+        <li *ngFor="let q of questions; index as i">
+            <div class="container">
+                <button (click)="removeItem(i)" class="close">
+                    X
+                </button>
+
+                <button (click)="increaseQuizLength()" class="add">
+                    +
+                </button>
+                <div class="form-group">
+                    <label for="question">Enter a question</label>
+                    <input type="text" name="questionTitle" id="question" required
+                        [(ngModel)]="model.questions[i].question">
+                </div>
+                
+                <fieldset class="options">
+                    <legend>Options</legend>
+                    <div class="form-group">
+                        <label for="a">A</label>
+                        <input type="text" name="option1" id="a" required
+                        [(ngModel)]="model.questions[i].options[0]">
+                    </div>
+    
+                    <div class="form-group">
+                        <label for="b">B</label>
+                        <input type="text" name="option2" id="b" required
+                        [(ngModel)]="model.questions[i].options[1]">
+                    </div>
+    
+                    <div class="form-group">
+                        <label for="c">C</label>
+                        <input type="text" name="option3" id="c" required
+                        [(ngModel)]="model.questions[i].options[2]">
+                    </div>
+    
+                    <div class="form-group">
+                        <label for="d">D</label>
+                        <input type="text" name="option4" id="d" required
+                        [(ngModel)]="model.questions[i].options[3]">
+                    </div>
+     
+                </fieldset>
+
+                <div class="answer">
+                    <h3>select the answer</h3>
+                    <label for="a-radio">A</label>
+                    <input type="radio" [name]="'a-' + i" id="a-radio" required ngModel
+                        value="0">
+
+                    <label for="b-radio">B</label>
+                    <input type="radio"  [name]="'a-' + i" id="b-radio" required ngModel
+                        value="1">
+                        
+                    <label for="c-radio">C</label>
+                    <input type="radio"  [name]="'a-' + i" id="c-radio" required ngModel
+                        value="2">
+
+                    <label for="d-radio">D</label>
+                    <input type="radio"   [name]="'a-' + i" id="d-radio" required ngModel
+                        value="3">
+                </div>
+                
+            </div>
+        </li>
+    </ul>
+    <button type="submit" class="submit-button" [disabled]="!quizForm.form.valid">SUBMIT</button>
+</form>
+
+

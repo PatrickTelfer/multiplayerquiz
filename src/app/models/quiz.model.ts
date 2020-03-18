@@ -5,7 +5,11 @@ export class Quiz {
         private questions: QuizQuestion[]
     ) {}
 
-    getQuestions() {
+    public getQuestions() {
         return [...this.questions];
+    }
+
+    public addQuestion(q: QuizQuestion) {
+        this.questions.push(q);
     }
 }

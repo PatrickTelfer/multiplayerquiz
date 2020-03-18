@@ -11,7 +11,8 @@ import { LobbyComponent } from './hub/join-server/lobby/lobby.component';
 import { HttpClientModule } from '@angular/common/http';
 import { JoinServerComponent } from './hub/join-server/join-server.component';
 import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
-import { ReactiveFormsModule } from '@angular/forms'
+import { ReactiveFormsModule } from '@angular/forms';
+import { CreateQuizComponent } from './hub/create-quiz/create-quiz.component'
  
 const config: SocketIoConfig = { url: 'http://localhost:3000', options: {} };
 
@@ -22,7 +23,8 @@ const config: SocketIoConfig = { url: 'http://localhost:3000', options: {} };
     HubComponent,
     NavBarComponent,
     LobbyComponent,
-    JoinServerComponent
+    JoinServerComponent,
+    CreateQuizComponent
   ],
   imports: [
     BrowserModule,
