@@ -6,8 +6,6 @@ const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 
-
-
 app.use((req, res, next) => {
     res.setHeader(
         'Access-Control-Allow-Origin', 'http://localhost:4200'
@@ -23,6 +21,11 @@ app.use((req, res, next) => {
         'Access-Control-Allow-Methods', 'GET, POST, PATCH, PUT, DELETE, OPTIONS'
     );
     next();
+});
+
+app.post('/api/createQuiz', (req, res, next) => {
+    console.log(req.body);
+    res.status(200).json({});
 });
 
 module.exports = app;

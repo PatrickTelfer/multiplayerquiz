@@ -58,10 +58,7 @@ app.get('/api/users/:id', (req, res, next) => {
     res.status(200).json(filteredUsers);
 });
 
-
 const removeAndReturnServer = (roomId, userId) => {
-  let user;
-
   for (let i = 0; i < servers.length; i++) {
     if (servers[i].serverId == roomId) {
       servers[i].clients = servers[i].clients.filter(client => client.uniqueId != userId);
@@ -80,7 +77,6 @@ io.on('connection' , (socket) => {
         socket.broadcast.in(currentRoomId).emit('users', usersLeftInRoom);
     });
     
-
     socket.on('user joined', (user) => {
         user.uniqueId = socket.id;
 
@@ -106,8 +102,6 @@ io.on('connection' , (socket) => {
 });
 
 
-
- 
 server.on("error", onError);
 server.on("listening", onListening);
 server.listen(port);
