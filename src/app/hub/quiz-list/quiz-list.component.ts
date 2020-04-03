@@ -1,15 +1,29 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Quiz } from '../../models/quiz.model'
+import { Subscription } from 'rxjs';
+import { QuizService } from 'src/app/quiz.service';
 
 @Component({
   selector: 'app-quiz-list',
   templateUrl: './quiz-list.component.html',
   styleUrls: ['./quiz-list.component.css']
 })
-export class QuizListComponent implements OnInit {
+export class QuizListComponent implements OnInit, OnDestroy {
+  quizzes: Quiz[] = [];
+  private quizSub: Subscription;
 
-  constructor() { }
+  constructor(public quizService: QuizService) { }
 
   ngOnInit() {
+    this.quizService.getQuizzes();
+    this.quizSub = this.quizService.getQuizUpdateListener()
+      .subscribe((quizzes: Quiz[]) => {
+        this.quizzes = quizzes;
+      })
+  }
+
+  ngOnDestroy() {
+    this.quizSub.unsubscribe();
   }
 
 }

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Quiz } from 'src/app/models/quiz.model';
 import { QuizQuestion } from 'src/app/models/quiz-question.model';
-import { CreateQuizService } from 'src/app/create-quiz.service';
+import { QuizService } from 'src/app/quiz.service';
 import { NgForm } from '@angular/forms';
 
 @Component({
@@ -12,7 +12,7 @@ import { NgForm } from '@angular/forms';
 export class CreateQuizComponent implements OnInit {
   questions: QuizQuestion[] = [];
   model;
-  constructor(private createQuizService : CreateQuizService) { }
+  constructor(private createQuizService : QuizService) { }
 
   ngOnInit() {
     this.increaseQuizLength();

@@ -2,6 +2,8 @@ import { QuizQuestion } from './quiz-question.model'
 
 export class Quiz {
     constructor(
+        private id: string,
+        private title: string,
         private questions: QuizQuestion[]
     ) {}
 

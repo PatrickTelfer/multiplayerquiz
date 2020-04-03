@@ -23,9 +23,19 @@ app.use((req, res, next) => {
     next();
 });
 
-app.post('/api/createQuiz', (req, res, next) => {
-    console.log(req.body);
-    res.status(200).json({});
-});
+const mongoose = require('mongoose');
+
+mongoose.connect('mongodb+srv://pat:0fXZPlV1XvM2AhyC@quiz-i9ry8.mongodb.net/test?retryWrites=true&w=majority', {useNewUrlParser: true})
+    .then( () => {
+        console.log('connected to database');
+    })
+    .catch( ()=> {
+        console.log('connection failed');
+    });
+
+//register routes
+const quizRoutes = require('./routes/quiz');
+
+app.use('/api/quizzes', quizRoutes);
 
 module.exports = app;
