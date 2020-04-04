@@ -12,7 +12,12 @@ import { HttpClientModule } from '@angular/common/http';
 import { JoinServerComponent } from './hub/join-server/join-server.component';
 import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
 import { ReactiveFormsModule } from '@angular/forms';
-import { CreateQuizComponent } from './hub/create-quiz/create-quiz.component'
+import { CreateQuizComponent } from './hub/create-quiz/create-quiz.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
+
+// material 
+import {MatCardModule} from '@angular/material/card';
+import {MatButtonModule} from '@angular/material/button';
  
 const config: SocketIoConfig = { url: 'http://localhost:3000', options: {} };
 
@@ -33,6 +38,9 @@ const config: SocketIoConfig = { url: 'http://localhost:3000', options: {} };
     HttpClientModule,
     ReactiveFormsModule,
     SocketIoModule.forRoot(config),
+    BrowserAnimationsModule,
+    MatCardModule,
+    MatButtonModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

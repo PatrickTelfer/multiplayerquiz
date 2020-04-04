@@ -22,6 +22,10 @@ export class QuizListComponent implements OnInit, OnDestroy {
       })
   }
 
+  deleteQuiz(quizId) {
+    this.quizService.deleteQuiz(quizId);
+  }
+
   ngOnDestroy() {
     this.quizSub.unsubscribe();
   }

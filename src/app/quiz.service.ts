@@ -28,6 +28,7 @@ export class QuizService {
     return this.quizzesUpdated.asObservable();
   }
 
+
   getQuizzes() {
     this.http.get<{message: string, quizzes: any}>
       ('http://localhost:3000/api/quizzes')
@@ -48,6 +49,15 @@ export class QuizService {
           this.quizzesUpdated.next([...this.quizzes])
         }
       )
+  }
+
+  deleteQuiz(id: string) {
+    this.http.delete('http://localhost:3000/api/quizzes/' + id)
+      .subscribe( () => {
+        const updatedQuizzes = this.quizzes.filter( quiz => quiz.id !== id)
+        this.quizzes = updatedQuizzes;
+        this.quizzesUpdated.next([...this.quizzes]);
+      })
   }
 
 }

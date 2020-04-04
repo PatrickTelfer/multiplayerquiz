@@ -29,4 +29,13 @@ router.get('', (req, res) => {
         })
 });
 
+router.delete('/:id', (req, res) => {
+    Quiz.deleteOne({_id: req.params.id})
+        .then((result) => {
+            res.status(200).json({
+                message: 'quiz deleted'
+            });
+        })
+});
+
 module.exports = router;

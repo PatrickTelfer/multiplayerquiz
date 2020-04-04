@@ -1,0 +1,9 @@
+.container {
+    padding: 1em;
+    margin: 1em;
+}
+
+mat-card {
+    margin-bottom: 1em;
+    max-width: 400px;
+}
