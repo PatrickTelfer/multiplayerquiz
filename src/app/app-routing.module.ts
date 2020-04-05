@@ -10,6 +10,7 @@ import { CreateQuizComponent } from './hub/create-quiz/create-quiz.component';
 const routes: Routes = [
   {path: 'quizzes', component: QuizListComponent},
   {path: 'createQuiz', component: CreateQuizComponent},
+  {path: 'edit/:id', component: CreateQuizComponent},
   {path: 'join', component: JoinServerComponent},
   {path: '', component: HubComponent},
   {path: 'lobby', component: LobbyComponent}

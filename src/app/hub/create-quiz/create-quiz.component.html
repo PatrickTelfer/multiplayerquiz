@@ -10,7 +10,7 @@
     </div>
 
     <ul>
-        <li *ngFor="let q of questions; index as i">
+        <li *ngFor="let q of model.questions; index as i">
             <div class="container">
                 <button (click)="removeItem(i)" class="close">
                     X
@@ -20,56 +20,63 @@
                     +
                 </button>
                 <div class="form-group">
-                    <label for="question">Enter a question</label>
-                    <input type="text" name="questionTitle" id="question" required
-                        [(ngModel)]="model.questions[i].question">
+                    <label [for]="'question-' + i">Enter a question</label>
+                    <input type="text" [name]="'questionTitle-' + i" [id]="'question-' + i" required
+                        [(ngModel)]="q.question">
                 </div>
                 
                 <fieldset class="options">
                     <legend>Options</legend>
+
+                    <!-- <div class="form-group" *ngFor="let option of q.options; index as j">
+                        <label [for]="'option-' + j + '-from-q-' + i"></label>
+                        <input type="text" [name]="'o-' + j + '-q-' + i" [id]="'option-' + j + '-from-q-' + i" required
+                            [(ngModel)]="option">
+                    </div> -->
+
                     <div class="form-group">
-                        <label for="a">A</label>
-                        <input type="text" name="option1" id="a" required
-                        [(ngModel)]="model.questions[i].options[0]">
+                        <label [for]="'a-' + i">A</label>
+                        <input type="text" [name]="'option1-' + i" [id]="'a-' + i" required
+                        [(ngModel)]="q.options[0]">
                     </div>
     
                     <div class="form-group">
-                        <label for="b">B</label>
-                        <input type="text" name="option2" id="b" required
-                        [(ngModel)]="model.questions[i].options[1]">
+                        <label [for]="'b-' + i">B</label>
+                        <input type="text" [name]="'option2-' + i" [id]="'b-' + i" required
+                        [(ngModel)]="q.options[1]">
                     </div>
     
                     <div class="form-group">
-                        <label for="c">C</label>
-                        <input type="text" name="option3" id="c" required
-                        [(ngModel)]="model.questions[i].options[2]">
+                        <label [for]="'c-' + i">C</label>
+                        <input type="text" [name]="'option3-' + i" [id]="'c-' + i" required
+                        [(ngModel)]="q.options[2]">
                     </div>
     
                     <div class="form-group">
-                        <label for="d">D</label>
-                        <input type="text" name="option4" id="d" required
-                        [(ngModel)]="model.questions[i].options[3]">
+                        <label [for]="'d-' + i">D</label>
+                        <input type="text" [name]="'option4-' + i" [id]="'d-' + i" required
+                        [(ngModel)]="q.options[3]">
                     </div>
      
                 </fieldset>
 
                 <div class="answer">
                     <h3>select the answer</h3>
-                    <label for="a-radio">A</label>
-                    <input type="radio" [name]="'a-' + i" id="a-radio" required ngModel
-                        value="0">
+                    <label [for]="'a-radio-' + i">A</label>
+                    <input type="radio" [name]="'a-' + i" [id]="'a-radio-' + i" required [(ngModel)]="q.answerIndex"
+                        [value]="0" [checked]="va">
 
-                    <label for="b-radio">B</label>
-                    <input type="radio"  [name]="'a-' + i" id="b-radio" required ngModel
-                        value="1">
+                    <label [for]="'b-radio-' + i">B</label>
+                    <input type="radio"  [name]="'b-' + i" [id]="'b-radio-' + i" required [(ngModel)]="q.answerIndex"
+                        [value]="1">
                         
-                    <label for="c-radio">C</label>
-                    <input type="radio"  [name]="'a-' + i" id="c-radio" required ngModel
-                        value="2">
+                    <label [for]="'c-radio-' + i">C</label>
+                    <input type="radio"  [name]="'c-' + i" [id]="'c-radio-' + i" required [(ngModel)]="q.answerIndex"
+                        [value]="2">
 
-                    <label for="d-radio">D</label>
-                    <input type="radio"   [name]="'a-' + i" id="d-radio" required ngModel
-                        value="3">
+                    <label [for]="'d-radio-' + i">D</label>
+                    <input type="radio"   [name]="'d-' + i" [id]="'d-radio-' + i" required [(ngModel)]="q.answerIndex"
+                        [value]="3">
                 </div>
                 
             </div>

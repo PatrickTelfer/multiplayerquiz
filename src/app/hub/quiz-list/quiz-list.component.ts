@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Quiz } from '../../models/quiz.model'
 import { Subscription } from 'rxjs';
 import { QuizService } from 'src/app/quiz.service';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-quiz-list',
@@ -12,7 +13,7 @@ export class QuizListComponent implements OnInit, OnDestroy {
   quizzes: Quiz[] = [];
   private quizSub: Subscription;
 
-  constructor(public quizService: QuizService) { }
+  constructor(public quizService: QuizService, public router: Router) { }
 
   ngOnInit() {
     this.quizService.getQuizzes();
@@ -24,6 +25,10 @@ export class QuizListComponent implements OnInit, OnDestroy {
 
   deleteQuiz(quizId) {
     this.quizService.deleteQuiz(quizId);
+  }
+
+  editQuiz(quizId) {
+    this.router.navigate(['edit', quizId])
   }
 
   ngOnDestroy() {

@@ -3,6 +3,8 @@ import { Quiz } from 'src/app/models/quiz.model';
 import { QuizQuestion } from 'src/app/models/quiz-question.model';
 import { QuizService } from 'src/app/quiz.service';
 import { NgForm } from '@angular/forms';
+import { ActivatedRoute, ParamMap } from '@angular/router';
+import { debug } from 'util';
 
 @Component({
   selector: 'app-create-quiz',
@@ -10,39 +12,75 @@ import { NgForm } from '@angular/forms';
   styleUrls: ['./create-quiz.component.css']
 })
 export class CreateQuizComponent implements OnInit {
-  questions: QuizQuestion[] = [];
+  Quiz: Quiz;
   model;
-  constructor(private createQuizService : QuizService) { }
+
+  private mode = "create";
+  private id: string;
+
+  constructor(private quizService: QuizService, public route: ActivatedRoute) { }
 
   ngOnInit() {
-    this.increaseQuizLength();
+
     this.model = {
-      questions: this.questions,
+      questions: [],
       title: '',
     }
+
+    this.route.paramMap.subscribe((paramMap: ParamMap) => {
+      if (paramMap.has('id')) {
+        this.mode = "edit";
+        this.id = paramMap.get('id');
+        this.quizService.getQuiz(this.id).subscribe((quizData) => {
+          this.model = {
+            questions: quizData.questions,
+            title: quizData.title
+          }
+          console.log(this.model);
+        });
+      } else {
+        this.increaseQuizLength();
+        console.log('create mode');
+      }
+    })
+
+
   }
 
   increaseQuizLength() {
-    const q = new QuizQuestion('', [], 0);
-    this.questions.push(q);
+    const q: QuizQuestion = {question: '', options: [], answerIndex: 0};
+    this.model.questions.push(q);
   }
 
   decreaseQuizLength() {
-    if (this.questions.length > 1) {
-      this.questions.pop();
+    if (this.model.questions.length > 1) {
+      this.model.questions.pop();
     }
   }
 
   removeItem(index: number) {
-    if (this.questions.length > 1) {
-      this.questions.splice(index, 1);
+    if (this.model.questions.length > 1) {
+      this.model.questions.splice(index, 1);
     }
   }
 
-  onSubmit(quizForm : NgForm) {
+  onSubmit(quizForm: NgForm) {
+
+    if (quizForm.invalid) {
+      return;
+    }
+
+    if (this.mode == "create") {
+      this.quizService.saveQuizToServer(this.model);
+    } else {
+      const newQuiz: Quiz = {id: this.id, title: this.model.title, questions: this.model.questions};
+      this.quizService.updateQuiz(this.id, newQuiz);
+    }
+
     console.log(this.model);
-    this.createQuizService.saveQuizToServer(this.model);
-    quizForm.form.reset();
+   
+    alert('quiz change success!');
+    // quizForm.form.reset();
   }
 
 }

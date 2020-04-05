@@ -19,6 +19,22 @@ router.post("", (req, res) => {
 
 });
 
+router.put('/:id', (req, res) => {
+    const quiz = new Quiz({
+        _id: req.body.id,
+        title: req.body.title,
+        questions: req.body.questions
+    });
+
+    Quiz.updateOne({_id: req.params.id}, quiz).then((result) =>{
+        res.status(200).json({
+            message: "update successful"
+        });
+    }).catch( () => {
+        console.log('failed');
+    })
+}); 
+
 router.get('', (req, res) => {
     Quiz.find()
         .then((fetchedQuizzes) => {
@@ -27,6 +43,17 @@ router.get('', (req, res) => {
                 quizzes: fetchedQuizzes
             })
         })
+});
+
+router.get('/:id', (req, res) => {
+
+    Quiz.findById(req.params.id).then(quiz => {
+        if (quiz) {
+            res.status(200).json(quiz);
+        } else {
+            res.status(404).json({message: 'quiz not found'})
+        }
+    })
 });
 
 router.delete('/:id', (req, res) => {

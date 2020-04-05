@@ -15,7 +15,7 @@
             </p>
         </mat-card-content>
         <mat-card-actions>
-            <button mat-button>EDIT</button>
+            <button (click)="editQuiz(quiz.id)" mat-button>EDIT</button>
             <button (click)="deleteQuiz(quiz.id)" mat-button>DELETE</button>
         </mat-card-actions>
     </mat-card>
