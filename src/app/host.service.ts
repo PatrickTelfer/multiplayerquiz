@@ -10,14 +10,24 @@ import { Router } from '@angular/router';
   providedIn: 'root',
 
 })
-export class HostService implements OnDestroy {
+export class HostService {
   connected: boolean;
   joinId: string;
   constructor(
     private socket: Socket, 
     private UserService: UserService,
-    private router: Router) {
+    private router: Router,
+    private http: HttpClient) {
 
+  }
+
+  createRoom() {
+    this.http.post<{roomId: string}>('http://localhost:3000/api/lobby', null).subscribe(room => {
+      this.joinId = room.roomId;
+      this.router.navigate(['/lobby'])
+      const hostUser = new User(this.joinId, "host");
+      this.socket.emit("user joined", hostUser)
+    });
   }
 
   connect(user) {
@@ -36,14 +46,5 @@ export class HostService implements OnDestroy {
 
   getJoinId () {
     return this.joinId;
-  }
-
-  disconnect() {
-    // this.socket.disconnect();
-  }
-
-  ngOnDestroy() {
-    console.log('bye');
-    // this.socket.disconnect();
   }
 }

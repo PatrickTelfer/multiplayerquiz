@@ -25,4 +25,8 @@ export class HubComponent implements OnInit, OnDestroy {
     }
   }
 
+  createServer() {
+    this.HostService.createRoom();
+  }
+
 }
