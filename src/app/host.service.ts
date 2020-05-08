@@ -39,6 +39,10 @@ export class HostService {
         this.UserService.setUsers(users);
       });
 
+      this.socket.on('startgame', () => {
+        this.router.navigate(['/game']);
+      });
+
     });
   }
 
@@ -54,9 +58,18 @@ export class HostService {
       this.socket.on('users', (users) => {
         console.log('new users: ', users);
         this.UserService.setUsers(users);
-      })
+      });
+
+      this.socket.on('startgame', () => {
+        this.router.navigate(['/game']);
+      });
+
     }
       
+  }
+
+  startGame() {
+    this.socket.emit('startgame');
   }
 
   getJoinId () {

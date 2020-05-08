@@ -30,8 +30,10 @@ lobbyController.addUserTolobby = (id, user) => {
 
 lobbyController.removeUserFromlobby = (serverId, userId) => {
     return lobbyController.getlobby(serverId).then(lobby => {
-        lobby.users = lobby.users.filter(u => u.uniqueId != userId);
-        return Lobby.updateOne({lobbyId: serverId}, lobby);
+        if (lobby != null) {
+            lobby.users = lobby.users.filter(u => u.uniqueId != userId);
+            return Lobby.updateOne({lobbyId: serverId}, lobby);
+        }
     })
     .catch(error => {
         console.log(error);

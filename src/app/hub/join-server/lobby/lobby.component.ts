@@ -30,4 +30,9 @@ export class LobbyComponent implements OnInit, OnDestroy {
     this.userSub.unsubscribe();
   }
 
+  startGame() {
+    console.log('starting game!');
+    this.HostService.startGame();
+  }
+
 }

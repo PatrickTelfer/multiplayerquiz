@@ -69,8 +69,10 @@ io.on('connection' , (socket) => {
         lobbyController.removeUserFromlobby(currentRoomId, socket.id).then(result => {
           console.log('a user disconnected');
           lobbyController.getlobby(currentRoomId).then(lobby => {
-            const usersLeftInRoom = lobby.users;
-            socket.broadcast.in(currentRoomId).emit('users', usersLeftInRoom);
+            if (lobby != null) {
+              const usersLeftInRoom = lobby.users;
+              socket.broadcast.in(currentRoomId).emit('users', usersLeftInRoom);
+            }
           })
         });
     });
@@ -87,6 +89,11 @@ io.on('connection' , (socket) => {
           })
         });
         
+    });
+
+    socket.on('startgame', () => {
+      console.log('starting game');
+      io.sockets.in(currentRoomId).emit('startgame');
     });
 
 });

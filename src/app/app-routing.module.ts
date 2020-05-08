@@ -5,6 +5,7 @@ import { HubComponent } from './hub/hub.component';
 import { JoinServerComponent } from './hub/join-server/join-server.component';
 import { LobbyComponent } from './hub/join-server/lobby/lobby.component';
 import { CreateQuizComponent } from './hub/create-quiz/create-quiz.component';
+import { GameComponent } from './game/game.component';
 
 
 const routes: Routes = [
@@ -13,7 +14,8 @@ const routes: Routes = [
   {path: 'edit/:id', component: CreateQuizComponent},
   {path: 'join', component: JoinServerComponent},
   {path: '', component: HubComponent},
-  {path: 'lobby', component: LobbyComponent}
+  {path: 'lobby', component: LobbyComponent},
+  {path: 'game', component: GameComponent}
 ];
 
 @NgModule({
