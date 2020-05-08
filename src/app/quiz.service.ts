@@ -19,8 +19,6 @@ export class QuizService {
     this.http.post<{message: string, quizId: string}>('http://localhost:3000/api/quizzes', quiz)
     .subscribe(
       (response) => {
-        console.log(response.message);
-        console.log(response.quizId);
         this.router.navigate(['quizzes']);
       }
     )

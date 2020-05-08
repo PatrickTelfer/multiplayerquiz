@@ -8,7 +8,13 @@ const lobbyController = require('../controllers/lobbyController');
 router.get('/:id', (req, res, next) => {
     const joinId = req.params.id;
     lobbyController.getlobby(joinId).then(lobby => {
-        res.status(200).json(lobby.users);
+        if (lobby == null) {
+            res.status(404);
+        } else {
+            res.status(200).json(lobby.users);
+        }
+    }).catch(error => {
+        console.log(error);
     })
 });
 

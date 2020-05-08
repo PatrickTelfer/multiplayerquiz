@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const lobbySchema = mongoose.Schema(
     {
         lobbyId: {type: String},
-        users: [{name: String, lobbyId: String, uniqueId: String}]
+        users: [{name: String, lobbyId: String, uniqueId: String, isHost: Boolean}]
 
     }
 )

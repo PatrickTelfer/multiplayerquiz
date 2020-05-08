@@ -28,7 +28,7 @@ export class JoinServerComponent implements OnInit {
     this.name = joinData.name;
     this.serverId = joinData.serverId;
     if (this.name != '' && this.serverId != '' ) {
-      const user = new User(this.serverId, this.name);
+      const user = new User(this.serverId, this.name, false);
       this.HostService.connect(user);
       this.joinForm.reset();
     }
@@ -36,7 +36,7 @@ export class JoinServerComponent implements OnInit {
 
   join () {
     let name = prompt('enter a name');
-    let user = new User(this.serverId, name);
+    let user = new User(this.serverId, name, false);
     this.HostService.connect(user);
   }
 

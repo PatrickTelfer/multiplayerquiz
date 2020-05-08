@@ -11,6 +11,7 @@ import { Subscription } from 'rxjs';
 export class LobbyComponent implements OnInit, OnDestroy {
   users = [];
   currentServer: string;
+  isHost: boolean;
   private userSub: Subscription;
   constructor(private userService: UserService, private HostService: HostService) { }
 
@@ -21,6 +22,8 @@ export class LobbyComponent implements OnInit, OnDestroy {
       .subscribe((users: []) => {
         this.users = users;
       });
+
+    this.isHost = this.HostService.isHost;
   }
 
   ngOnDestroy() {

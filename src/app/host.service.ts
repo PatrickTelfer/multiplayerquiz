@@ -13,6 +13,7 @@ import { Router } from '@angular/router';
 export class HostService {
   connected: boolean;
   joinId: string;
+  isHost: boolean;
   constructor(
     private socket: Socket, 
     private UserService: UserService,
@@ -24,21 +25,35 @@ export class HostService {
   createRoom() {
     this.http.post<{roomId: string}>('http://localhost:3000/api/lobby', null).subscribe(room => {
       this.joinId = room.roomId;
-      this.router.navigate(['/lobby'])
-      const hostUser = new User(this.joinId, "host");
-      this.socket.emit("user joined", hostUser)
+      console.log("createroomid: ", this.joinId);
+      this.router.navigate(['/lobby']);
+
+      const hostUser = new User(this.joinId, "host", true);
+      this.isHost = true;
+      this.connected = true;
+
+      this.socket.emit("user joined", hostUser);
+
+      this.socket.on('users', (users) => {
+        console.log('new users from create room', users);
+        this.UserService.setUsers(users);
+      });
+
     });
   }
 
   connect(user) {
     if(!this.connected) {
       this.joinId = user.joinId;
+      this.isHost = false;
+
       this.socket.emit("user joined", user);
+      this.connected = true;
+      this.router.navigate(['/lobby'])
+
       this.socket.on('users', (users) => {
         console.log('new users: ', users);
         this.UserService.setUsers(users);
-        this.connected = true;
-        this.router.navigate(['/lobby'])
       })
     }
       

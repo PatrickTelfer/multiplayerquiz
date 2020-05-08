@@ -36,7 +36,6 @@ export class CreateQuizComponent implements OnInit {
             questions: quizData.questions,
             title: quizData.title
           }
-          console.log(this.model);
         });
       } else {
         this.increaseQuizLength();

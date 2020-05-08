@@ -1,7 +1,16 @@
 <h2>You are currently joined on server: {{currentServer}}</h2>
 
+<h3 *ngIf="isHost">you are the host</h3>
+
+<div *ngIf="isHost">
+    <button>START GAME</button>
+</div>
+
 <ul>
-    <li *ngFor="let user of users">
-        <p>{{user.name}}</p>
-    </li>
+    <ng-container *ngFor="let user of users">
+        <li *ngIf="!user.isHost">
+            <p>{{user.name}}</p>
+        </li>
+    </ng-container>
 </ul>
+

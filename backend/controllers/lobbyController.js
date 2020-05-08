@@ -33,6 +33,9 @@ lobbyController.removeUserFromlobby = (serverId, userId) => {
         lobby.users = lobby.users.filter(u => u.uniqueId != userId);
         return Lobby.updateOne({lobbyId: serverId}, lobby);
     })
+    .catch(error => {
+        console.log(error);
+    })
 }
 
 module.exports = lobbyController;
