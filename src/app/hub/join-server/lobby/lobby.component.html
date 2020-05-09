@@ -3,6 +3,13 @@
 <h3 *ngIf="isHost">you are the host</h3>
 
 <div *ngIf="isHost">
+    <label for="quizSelect">select quiz</label>
+    <select id="quizSelect" [(ngModel)]="selectedQuizId">
+        <option *ngFor="let quiz of quizzes"
+                [value]="quiz.id">
+            {{quiz.title}}
+        </option>
+    </select>
     <button (click)="startGame()">START GAME</button>
 </div>
 

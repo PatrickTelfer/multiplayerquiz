@@ -64,6 +64,7 @@ const lobbyController = require('./controllers/lobbyController');
 io.on('connection' , (socket) => { 
     console.log('a user connected');
     let currentRoomId;
+    let quiz;
 
     socket.on('disconnect', () => {
         lobbyController.removeUserFromlobby(currentRoomId, socket.id).then(result => {
@@ -91,7 +92,7 @@ io.on('connection' , (socket) => {
         
     });
 
-    socket.on('startgame', () => {
+    socket.on('startgame', (selectedQuizId) => {
       console.log('starting game');
       io.sockets.in(currentRoomId).emit('startgame');
     });

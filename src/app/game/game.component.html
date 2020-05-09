@@ -1,1 +1,87 @@
-<p>game works!</p>
+<div *ngIf="isHost()">
+    <div *ngIf="isQuestionState()">
+        <mat-card>
+            <mat-card-title>
+                {{gameData.currentQuestion}}
+            </mat-card-title>
+            <mat-card-content>
+                <div class="gridContainer">
+                    <div class="a">
+                        {{gameData.options[0]}}
+                    </div>
+                    <div class="b">
+                        {{gameData.options[1]}}
+                    </div>
+                    <div class="c">
+                        {{gameData.options[2]}}
+                    </div>
+                    <div class="d">
+                        {{gameData.options[3]}}
+                    </div>
+                </div>
+            </mat-card-content>
+        </mat-card>
+    </div>
+
+    <div *ngIf="isAnswerState()">
+        <mat-card>
+            <mat-card-title>
+                {{gameData.currentQuestion}}
+            </mat-card-title>
+            <mat-card-content>
+                <div class="gridContainer">
+                    <div [ngClass]="{'right': gameData.answer == 'a', 'wrong': gameData.answer != 'a'}">
+                        {{gameData.options[0]}}
+                    </div>
+                    <div [ngClass]="{'right': gameData.answer == 'b', 'wrong': gameData.answer != 'b'}">
+                        {{gameData.options[1]}}
+                    </div>
+                    <div [ngClass]="{'right': gameData.answer == 'c', 'wrong': gameData.answer != 'c'}">
+                        {{gameData.options[2]}}
+                    </div>
+                    <div  [ngClass]="{'right': gameData.answer == 'd', 'wrong': gameData.answer != 'd'}">
+                        {{gameData.options[3]}}
+                    </div>
+                </div>
+            </mat-card-content>
+        </mat-card>
+    </div>
+</div>
+
+<div *ngIf="!isHost()" class="width100 height100">
+    <div *ngIf="isQuestionState()" class="gridContainer">
+        <button class="a">A</button>
+        <button class="b">B</button>
+        <button class="c">C</button>
+        <button class="d">D</button>
+    </div>
+
+    <div *ngIf="isAnswerState()" class="gridContainer">
+        <button disabled [ngClass]="{'right': gameData.answer == 'a', 'wrong': gameData.answer != 'a'}">A</button>
+        <button disabled [ngClass]="{'right': gameData.answer == 'b', 'wrong': gameData.answer != 'b'}">B</button>
+        <button disabled [ngClass]="{'right': gameData.answer == 'c', 'wrong': gameData.answer != 'c'}">C</button>
+        <button disabled [ngClass]="{'right': gameData.answer == 'd', 'wrong': gameData.answer != 'd'}">D</button>
+    </div>
+</div>
+
+<div *ngIf="isResultState() || isFinalState()">
+    <mat-card>
+        <mat-card-header>
+            <span *ngIf="isResultState()">Top 5 players!</span>
+            <span *ngIf="isFinalState()">Game Over! Here are the winners</span>
+            
+        </mat-card-header>
+        <mat-card-content>
+            <ol>
+                <li *ngFor="let player of gameData.topPlayers">
+                    <p>{{player.name}} has {{player.score}} points!</p>
+                </li>
+            </ol>
+        </mat-card-content>
+
+        <mat-card-actions *ngIf="isHost()">
+            <button *ngIf="isResultState()">Next Question</button>
+            <button *ngIf="isFinalState()">End Game</button>
+        </mat-card-actions>
+    </mat-card>
+</div>

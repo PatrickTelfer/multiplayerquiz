@@ -2,6 +2,8 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import {HostService} from '../../../host.service';
 import { UserService } from '../../../user.service';
 import { Subscription } from 'rxjs';
+import { QuizService } from 'src/app/quiz.service';
+import { Quiz } from 'src/app/models/quiz.model';
 
 @Component({
   selector: 'app-lobby',
@@ -12,8 +14,17 @@ export class LobbyComponent implements OnInit, OnDestroy {
   users = [];
   currentServer: string;
   isHost: boolean;
+  quizzes : Quiz[] = [];
+  private quizSub: Subscription;
   private userSub: Subscription;
-  constructor(private userService: UserService, private HostService: HostService) { }
+
+  selectedQuizId: string;
+
+  constructor(
+    private userService: UserService, 
+    private HostService: HostService,
+    private quizService: QuizService
+    ) { }
 
   ngOnInit() {
     this.currentServer = this.HostService.getJoinId();
@@ -24,6 +35,15 @@ export class LobbyComponent implements OnInit, OnDestroy {
       });
 
     this.isHost = this.HostService.isHost;
+
+    if (this.isHost == true) {
+      this.quizService.getQuizzes();
+      this.quizSub = this.quizService.getQuizUpdateListener()
+        .subscribe((quizzes: Quiz[]) => {
+          this.quizzes = quizzes;
+        })
+    }
+
   }
 
   ngOnDestroy() {
@@ -32,7 +52,11 @@ export class LobbyComponent implements OnInit, OnDestroy {
 
   startGame() {
     console.log('starting game!');
-    this.HostService.startGame();
+    if (this.selectedQuizId) {
+      this.HostService.startGame(this.selectedQuizId);
+    } else {
+      alert('you must select a quiz');
+    }
   }
 
 }

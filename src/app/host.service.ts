@@ -68,8 +68,8 @@ export class HostService {
       
   }
 
-  startGame() {
-    this.socket.emit('startgame');
+  startGame(selectedQuizId: String) {
+    this.socket.emit('startgame', selectedQuizId);
   }
 
   getJoinId () {
