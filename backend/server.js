@@ -64,7 +64,8 @@ const lobbyController = require('./controllers/lobbyController');
 io.on('connection' , (socket) => { 
     console.log('a user connected');
     let currentRoomId;
-    let quiz;
+    let currentUser;
+    let lobbyUsers;
 
     socket.on('disconnect', () => {
         lobbyController.removeUserFromlobby(currentRoomId, socket.id).then(result => {
@@ -80,9 +81,12 @@ io.on('connection' , (socket) => {
     
     socket.on('user joined', (user) => {
         user.uniqueId = socket.id;
+        currentUser = user;
 
         socket.join(user.joinId);
         currentRoomId = user.joinId;
+
+        io.to(socket.id).emit('uniqueId', user._id);
 
         lobbyController.addUserTolobby(user.joinId, user).then(l => {
           lobbyController.getlobby(user.joinId).then(lobby => {
@@ -92,12 +96,79 @@ io.on('connection' , (socket) => {
         
     });
 
-    socket.on('startgame', (selectedQuizId) => {
-      console.log('starting game');
-      io.sockets.in(currentRoomId).emit('startgame');
-    });
+  let quiz;
+  let currentScore;
+  let answer;
 
+  socket.on('startgame', (selectedQuizId) => {
+    if(currentUser.isHost) {
+      lobbyController.getlobby(currentRoomId).then((lobby) => {
+        lobbyUsers = lobby.users;
+        console.log(lobbyUsers);
+        for (let i = 0; i < lobbyUsers.length; i++) {
+          if(lobbyUsers[i].isHost == false) {
+            // lobbyUsers[i].score = 0;
+            // lobbyUsers[i].currentGuessIndex = 0;
+          }
+        }
+
+        // emit to all other users except host
+        socket.to(currentRoomId).emit('startgame');
+
+        // emit to host (-1 we dont want to count the host as a player)
+        io.to(socket.id).emit('startgameHost', lobbyUsers.length - 1);
+        Quiz.findById(selectedQuizId).then(foundQuiz => {
+          io.to(socket.id).emit('selectedquiz', foundQuiz);
+        });
+
+        io.in(currentRoomId).emit('updateState', "question");
+      });
+    }   
+  });
+
+  socket.on('hostAnswer', (answerData) => {
+    if (currentUser.isHost) {
+      // let uniqueId = answerData.id;
+      // let answerIndex = answerData.index;
+      // console.log(uniqueId);
+      // let userIndex = lobbyUsers.findIndex((user) => {
+      //   user.uniqueId == uniqueId;
+      // });
+
+      // console.log(lobbyUsers);
+      // console.log(userIndex);
+
+      // lobbyUsers[userIndex].currentGuessIndex = answerIndex;
+      // tell the client host a player answered;
+      io.to(socket.id).emit('playerAnswer');
+    }
+  });
+
+  socket.on('answer', (answerData) => {
+    socket.to(currentRoomId).emit('tellHostAnswer', answerData);
+  });
+
+  socket.on('updateAnswerForAllPlayers', (answerIndex) => {
+    socket.to(currentRoomId).emit('updateAnswer', answerIndex);
+  });
+
+  socket.on('nextquestion', () => {
+    io.to(currentRoomId).emit('updateState', "question");
+  })
+
+  socket.on('gameover', () => {
+    io.to(currentRoomId).emit('updateState', "final");
+  })
+
+  socket.on('allPlayersAnswered', () => {
+    console.log('allPlayersAnswered');
+    if (currentUser.isHost) {
+      io.in(currentRoomId).emit('updateState', "answer");
+    }
+  });
 });
+
+const Quiz = require('./models/quiz')
 
 
 server.on("error", onError);

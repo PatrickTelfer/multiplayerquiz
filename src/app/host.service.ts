@@ -1,9 +1,10 @@
-import { Injectable, OnDestroy } from '@angular/core';
+import { Injectable, OnDestroy, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { User } from './models/user.model';
 import { Socket } from 'ngx-socket-io';
 import { UserService } from './user.service';
 import { Router } from '@angular/router';
+import { Quiz } from './models/quiz.model';
 
 
 @Injectable({
@@ -14,18 +15,24 @@ export class HostService {
   connected: boolean;
   joinId: string;
   isHost: boolean;
+  totalPlayers: number;
+  uniqueId: string;
+  quiz: Quiz;
   constructor(
     private socket: Socket, 
     private UserService: UserService,
     private router: Router,
     private http: HttpClient) {
+      
+      this.socket.on('uniqueId', (id) => {
+        this.uniqueId = id;
+      })
 
   }
 
   createRoom() {
     this.http.post<{roomId: string}>('http://localhost:3000/api/lobby', null).subscribe(room => {
       this.joinId = room.roomId;
-      console.log("createroomid: ", this.joinId);
       this.router.navigate(['/lobby']);
 
       const hostUser = new User(this.joinId, "host", true);
@@ -35,13 +42,18 @@ export class HostService {
       this.socket.emit("user joined", hostUser);
 
       this.socket.on('users', (users) => {
-        console.log('new users from create room', users);
         this.UserService.setUsers(users);
       });
 
-      this.socket.on('startgame', () => {
+      this.socket.on('startgameHost', (totalPlayers) => {
+        this.totalPlayers = totalPlayers;
         this.router.navigate(['/game']);
       });
+
+      this.socket.on('tellHostAnswer', answerData => {
+        this.socket.emit('hostAnswer', answerData);
+      })
+
 
     });
   }
@@ -56,7 +68,6 @@ export class HostService {
       this.router.navigate(['/lobby'])
 
       this.socket.on('users', (users) => {
-        console.log('new users: ', users);
         this.UserService.setUsers(users);
       });
 

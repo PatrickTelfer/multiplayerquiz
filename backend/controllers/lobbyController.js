@@ -32,7 +32,12 @@ lobbyController.removeUserFromlobby = (serverId, userId) => {
     return lobbyController.getlobby(serverId).then(lobby => {
         if (lobby != null) {
             lobby.users = lobby.users.filter(u => u.uniqueId != userId);
-            return Lobby.updateOne({lobbyId: serverId}, lobby);
+            //if last person leaving lobby then delete lobby from database
+            if (lobby.users.length == 0) {
+                return Lobby.deleteOne({lobbyId: serverId});
+            } else {
+                return Lobby.updateOne({lobbyId: serverId}, lobby);
+            }
         }
     })
     .catch(error => {
