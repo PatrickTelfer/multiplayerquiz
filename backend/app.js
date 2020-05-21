@@ -42,8 +42,6 @@ app.use('/api/quizzes', quizRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/lobby', lobbyRoutes);
 
-var distDir = __dirname + "/dist/";
-app.use(express.static(distDir));
 
 
 module.exports = app;
