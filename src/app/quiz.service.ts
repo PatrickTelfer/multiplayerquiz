@@ -16,7 +16,7 @@ export class QuizService {
   constructor(private http: HttpClient, public router: Router) { }
 
   public saveQuizToServer(quiz) {
-    this.http.post<{message: string, quizId: string}>('http://localhost:3000/api/quizzes', quiz)
+    this.http.post<{message: string, quizId: string}>('api/quizzes', quiz)
     .subscribe(
       (response) => {
         this.router.navigate(['quizzes']);
@@ -31,7 +31,7 @@ export class QuizService {
 
   getQuizzes() {
     this.http.get<{message: string, quizzes: any}>
-      ('http://localhost:3000/api/quizzes')
+      ('api/quizzes')
       .pipe(
         map((quizData) => {
           return quizData.quizzes.map( quiz => {
@@ -52,11 +52,11 @@ export class QuizService {
   }
 
   getQuiz(id: string) {
-    return this.http.get<any>('http://localhost:3000/api/quizzes/' + id);
+    return this.http.get<any>('api/quizzes/' + id);
   }
 
   updateQuiz(oldQuizId: string, newQuiz: Quiz) {
-    this.http.put('http://localhost:3000/api/quizzes/' + oldQuizId, newQuiz).subscribe(
+    this.http.put('api/quizzes/' + oldQuizId, newQuiz).subscribe(
       (response) => {
         const updatedQuizzes  = [...this.quizzes];
         const oldQuizIndex = updatedQuizzes.findIndex(q => q.id == oldQuizId);
@@ -69,7 +69,7 @@ export class QuizService {
   }
 
   deleteQuiz(id: string) {
-    this.http.delete('http://localhost:3000/api/quizzes/' + id)
+    this.http.delete('api/quizzes/' + id)
       .subscribe( () => {
         const updatedQuizzes = this.quizzes.filter( quiz => quiz.id !== id)
         this.quizzes = updatedQuizzes;
