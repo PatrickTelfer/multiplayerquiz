@@ -12,7 +12,7 @@ export class UserService {
   constructor(private http: HttpClient) { }
 
   getUsers(joinId: string) {
-    this.http.get('api/users/' + joinId)
+    this.http.get('/api/users/' + joinId)
       .subscribe(
         (newUsers: []) => {
           console.log("user service(new users): ", newUsers);

@@ -809,7 +809,7 @@ let HostService = class HostService {
         });
     }
     createRoom() {
-        this.http.post('api/lobby', null).subscribe(room => {
+        this.http.post('/api/lobby', null).subscribe(room => {
             this.joinId = room.roomId;
             this.router.navigate(['/lobby']);
             const hostUser = new _models_user_model__WEBPACK_IMPORTED_MODULE_3__["User"](this.joinId, "host", true);
@@ -1377,7 +1377,7 @@ let QuizService = class QuizService {
         return this.quizzesUpdated.asObservable();
     }
     getQuizzes() {
-        this.http.get('api/quizzes')
+        this.http.get('/api/quizzes')
             .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["map"])((quizData) => {
             return quizData.quizzes.map(quiz => {
                 return {
@@ -1393,10 +1393,10 @@ let QuizService = class QuizService {
         });
     }
     getQuiz(id) {
-        return this.http.get('api/quizzes/' + id);
+        return this.http.get('/api/quizzes/' + id);
     }
     updateQuiz(oldQuizId, newQuiz) {
-        this.http.put('api/quizzes/' + oldQuizId, newQuiz).subscribe((response) => {
+        this.http.put('/api/quizzes/' + oldQuizId, newQuiz).subscribe((response) => {
             const updatedQuizzes = [...this.quizzes];
             const oldQuizIndex = updatedQuizzes.findIndex(q => q.id == oldQuizId);
             updatedQuizzes[oldQuizIndex] = newQuiz;
@@ -1406,7 +1406,7 @@ let QuizService = class QuizService {
         });
     }
     deleteQuiz(id) {
-        this.http.delete('api/quizzes/' + id)
+        this.http.delete('/api/quizzes/' + id)
             .subscribe(() => {
             const updatedQuizzes = this.quizzes.filter(quiz => quiz.id !== id);
             this.quizzes = updatedQuizzes;
@@ -1453,7 +1453,7 @@ let UserService = class UserService {
         this.usersUpdated = new rxjs__WEBPACK_IMPORTED_MODULE_2__["Subject"]();
     }
     getUsers(joinId) {
-        this.http.get('api/users/' + joinId)
+        this.http.get('/api/users/' + joinId)
             .subscribe((newUsers) => {
             console.log("user service(new users): ", newUsers);
             this.users = newUsers;

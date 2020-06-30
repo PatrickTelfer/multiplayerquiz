@@ -31,7 +31,7 @@ export class HostService {
   }
 
   createRoom() {
-    this.http.post<{roomId: string}>('api/lobby', null).subscribe(room => {
+    this.http.post<{roomId: string}>('/api/lobby', null).subscribe(room => {
       this.joinId = room.roomId;
       this.router.navigate(['/lobby']);
 

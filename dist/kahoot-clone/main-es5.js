@@ -1469,7 +1469,7 @@
       }
 
       createRoom() {
-        this.http.post('api/lobby', null).subscribe(room => {
+        this.http.post('/api/lobby', null).subscribe(room => {
           this.joinId = room.roomId;
           this.router.navigate(['/lobby']);
           const hostUser = new _models_user_model__WEBPACK_IMPORTED_MODULE_3__["User"](this.joinId, "host", true);
@@ -2334,7 +2334,7 @@
       }
 
       getQuizzes() {
-        this.http.get('api/quizzes').pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["map"])(quizData => {
+        this.http.get('/api/quizzes').pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["map"])(quizData => {
           return quizData.quizzes.map(quiz => {
             return {
               title: quiz.title,
@@ -2349,11 +2349,11 @@
       }
 
       getQuiz(id) {
-        return this.http.get('api/quizzes/' + id);
+        return this.http.get('/api/quizzes/' + id);
       }
 
       updateQuiz(oldQuizId, newQuiz) {
-        this.http.put('api/quizzes/' + oldQuizId, newQuiz).subscribe(response => {
+        this.http.put('/api/quizzes/' + oldQuizId, newQuiz).subscribe(response => {
           const updatedQuizzes = [...this.quizzes];
           const oldQuizIndex = updatedQuizzes.findIndex(q => q.id == oldQuizId);
           updatedQuizzes[oldQuizIndex] = newQuiz;
@@ -2364,7 +2364,7 @@
       }
 
       deleteQuiz(id) {
-        this.http.delete('api/quizzes/' + id).subscribe(() => {
+        this.http.delete('/api/quizzes/' + id).subscribe(() => {
           const updatedQuizzes = this.quizzes.filter(quiz => quiz.id !== id);
           this.quizzes = updatedQuizzes;
           this.quizzesUpdated.next([...this.quizzes]);
@@ -2437,7 +2437,7 @@
       }
 
       getUsers(joinId) {
-        this.http.get('api/users/' + joinId).subscribe(newUsers => {
+        this.http.get('/api/users/' + joinId).subscribe(newUsers => {
           console.log("user service(new users): ", newUsers);
           this.users = newUsers;
           this.usersUpdated.next([...this.users]);

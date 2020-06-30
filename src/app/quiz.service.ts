@@ -31,7 +31,7 @@ export class QuizService {
 
   getQuizzes() {
     this.http.get<{message: string, quizzes: any}>
-      ('api/quizzes')
+      ('/api/quizzes')
       .pipe(
         map((quizData) => {
           return quizData.quizzes.map( quiz => {
@@ -52,11 +52,11 @@ export class QuizService {
   }
 
   getQuiz(id: string) {
-    return this.http.get<any>('api/quizzes/' + id);
+    return this.http.get<any>('/api/quizzes/' + id);
   }
 
   updateQuiz(oldQuizId: string, newQuiz: Quiz) {
-    this.http.put('api/quizzes/' + oldQuizId, newQuiz).subscribe(
+    this.http.put('/api/quizzes/' + oldQuizId, newQuiz).subscribe(
       (response) => {
         const updatedQuizzes  = [...this.quizzes];
         const oldQuizIndex = updatedQuizzes.findIndex(q => q.id == oldQuizId);
@@ -69,7 +69,7 @@ export class QuizService {
   }
 
   deleteQuiz(id: string) {
-    this.http.delete('api/quizzes/' + id)
+    this.http.delete('/api/quizzes/' + id)
       .subscribe( () => {
         const updatedQuizzes = this.quizzes.filter( quiz => quiz.id !== id)
         this.quizzes = updatedQuizzes;

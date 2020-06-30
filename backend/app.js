@@ -6,6 +6,9 @@ const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 
+var distDir = __dirname + "/dist";
+app.use(express.static(distDir));
+
 app.use((req, res, next) => {
     res.setHeader(
         'Access-Control-Allow-Origin', 'http://localhost:4200'
@@ -25,7 +28,7 @@ app.use((req, res, next) => {
 
 const mongoose = require('mongoose');
 
-mongoose.connect('mongodb+srv://pat:<password>@quiz-i9ry8.mongodb.net/test?retryWrites=true&w=majority', {useNewUrlParser: true})
+mongoose.connect(process.env.MONGODB_URI, {useNewUrlParser: true})
     .then( () => {
         console.log('connected to database');
     })
