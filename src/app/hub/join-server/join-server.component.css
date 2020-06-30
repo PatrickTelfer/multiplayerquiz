@@ -1,4 +1,22 @@
-form {
+mat-card {
+    margin: 1em;
+    /* max-width: 400px; */
+    width:  50%;
+    margin: auto;
+}
+
+button {
+    background-color: rgb(156, 40, 177);
+    padding: 1em;
+    width: 100%;
+    margin-bottom: 1em;
+}
+
+mat-form-field{
+    width: 100%;
+}
+
+/* form {
     margin: 10vw auto;
     padding: 4vw;
     width: 75%;
@@ -46,4 +64,4 @@ button:hover {
 input.ng-invalid.ng-touched {
     border-color: red;
 }
-
+ */

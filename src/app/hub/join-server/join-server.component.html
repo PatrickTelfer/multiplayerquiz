@@ -1,16 +1,32 @@
+<mat-card>
+    <mat-card-header>
+        <mat-card-title>
+            Join server!
+        </mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+        <div>
+            <form [formGroup]="joinForm" (ngSubmit)="onSubmit(joinForm.value)">
+                <mat-form-field>
+                    <mat-label>
+                        Enter a valid serverId
+                    </mat-label>
+                    <input matInput formControlName="serverId" required matInput>
+                </mat-form-field>
 
-<form [formGroup]="joinForm"
-    (ngSubmit)="onSubmit(joinForm.value)">
+                <mat-form-field>
+                    <mat-label>
+                        Enter a name
+                    </mat-label>
+                    <input matInput formControlName="name" required >
+                </mat-form-field>
 
-    <div>
-        <label for="s">Enter a valid server ID</label>
-        <input id="s" formControlName="serverId" required>
-    </div>
-
-    <div>
-        <label for="n">Enter a name</label>
-        <input id="n" formControlName="name" required>
-    </div>
-    
-    <button type="submit">Join</button>
-</form>
+                <button type="submit" mat-button>Join</button>
+            </form>
+        </div>
+    </mat-card-content>
+    <!-- <mat-card-actions>
+        <button (click)="editQuiz(quiz.id)" mat-button>EDIT</button>
+        <button (click)="deleteQuiz(quiz.id)" mat-button>DELETE</button>
+    </mat-card-actions> -->
+</mat-card>
