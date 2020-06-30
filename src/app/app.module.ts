@@ -20,7 +20,7 @@ import {MatCardModule} from '@angular/material/card';
 import {MatButtonModule} from '@angular/material/button';
 import { GameComponent } from './game/game.component';
  
-const config: SocketIoConfig = { url: 'http://localhost:3000', options: {} };
+const config: SocketIoConfig = { url: 'https://realtimequiz.herokuapp.com/', options: {} };
 
 @NgModule({
   declarations: [
