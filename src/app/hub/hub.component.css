@@ -1,40 +1,19 @@
-div {
-    margin: 10vw auto;
-    padding: 4vw;
-    width: 75%;
-    display: flex;
-    justify-content: space-evenly;
-    background-color: white;
-    border-style: solid;
-    opacity: 50%;
-    transition: linear 0.5s;
-}
-
-div:hover {
-    opacity: 1;
+mat-card {
+    margin: 1em;
+    /* max-width: 400px; */
+    width:  50%;
+    margin: auto;
 }
 
 button {
-    padding: 1vw;
-    background-color: black;
-    color: white;
+    background-color: rgb(156, 40, 177);
+    padding: 1em;
+    width: 100%;
+    margin-bottom: 1em;
 }
 
 .highlight {
-    background-color: orange;
+    background-color: palevioletred;
 }
 
-button:hover {
-    background-color: #454545;
-}
-
-@media only screen and (min-width: 1200px) {
-    button {
-        font-size: 3em;
-    }
-  }
-
-h1 {
-    font-size: 3em;
-}
 

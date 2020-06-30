@@ -1,7 +1,22 @@
 
-<div>
-    <button (click)="createServer()" >CREATE SERVER</button>
-    <button (click)="onGoToJoinServer()" class="highlight">JOIN SERVER</button>
-    <button routerLink="/quizzes">VIEW QUIZZES</button>
-    <button routerLink="/createQuiz">CREATE A QUIZ</button>
-</div>
+
+
+<mat-card>
+    <mat-card-header>
+        <mat-card-title>
+            Welcome to Real Time Quiz
+        </mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+        <div>
+            <button (click)="createServer()" mat-button>CREATE SERVER</button>
+            <button (click)="onGoToJoinServer()" class="highlight" mat-button>JOIN SERVER</button>
+            <button routerLink="/quizzes" mat-button>VIEW QUIZZES</button>
+            <button routerLink="/createQuiz" mat-button>CREATE A QUIZ</button>
+        </div>
+    </mat-card-content>
+    <!-- <mat-card-actions>
+        <button (click)="editQuiz(quiz.id)" mat-button>EDIT</button>
+        <button (click)="deleteQuiz(quiz.id)" mat-button>DELETE</button>
+    </mat-card-actions> -->
+</mat-card>

@@ -517,7 +517,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-const config = { url: 'http://localhost:3000', options: {} };
+const config = { url: 'https://realtimequiz.herokuapp.com/', options: {} };
 let AppModule = class AppModule {
 };
 AppModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([

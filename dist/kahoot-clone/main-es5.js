@@ -1062,7 +1062,7 @@
 
 
     const config = {
-      url: 'http://localhost:3000',
+      url: 'https://realtimequiz.herokuapp.com/',
       options: {}
     };
     let AppModule = class AppModule {};
