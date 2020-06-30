@@ -10,9 +10,9 @@ var distDir = __dirname + "/../dist";
 app.use(express.static(distDir));
 
 app.use((req, res, next) => {
-    // res.setHeader(
-    //     'Access-Control-Allow-Origin', 'http://localhost:4200'
-    // );
+    res.setHeader(
+        'Access-Control-Allow-Origin', 'https://realtimequiz.herokuapp.com/'
+    );
     res.setHeader(
         'Access-Control-Allow-Credentials', 'true'
     )
