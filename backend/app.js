@@ -6,13 +6,13 @@ const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 
-var distDir = __dirname + "/dist";
+var distDir = __dirname + "/../dist";
 app.use(express.static(distDir));
 
 app.use((req, res, next) => {
-    res.setHeader(
-        'Access-Control-Allow-Origin', 'http://localhost:4200'
-    );
+    // res.setHeader(
+    //     'Access-Control-Allow-Origin', 'http://localhost:4200'
+    // );
     res.setHeader(
         'Access-Control-Allow-Credentials', 'true'
     )
