@@ -44,9 +44,6 @@ mat-card-content {
     background-color:  lightgreen;
 }
 
-button:active {
-    background-color: white;
-}
 
 .a {
     background-color: #FFC265;
