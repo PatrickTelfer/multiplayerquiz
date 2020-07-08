@@ -14,10 +14,6 @@ button {
     font-size: xx-large;
 }
 
-button:hover {
-    background-color: white;
-}
-
 mat-card {
     margin: 1em;
 }
