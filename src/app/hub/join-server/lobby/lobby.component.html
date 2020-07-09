@@ -1,23 +1,40 @@
-<h2>You are currently joined on server: {{currentServer}}</h2>
+<mat-card>
+    <mat-card-header>
+        <mat-card-title>
+            You are currently joined on server: {{currentServer}}
+        </mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
 
-<h3 *ngIf="isHost">you are the host</h3>
+        <div *ngIf="isHost" class="flex">
+            <mat-form-field class="flex-item">
+                <mat-label for="quizSelect">
+                    Select Quiz
+                </mat-label>
+                <mat-select id="quizSelect" [(ngModel)]="selectedQuizId">
+                    <mat-option *ngFor="let quiz of quizzes" [value]="quiz.id">
+                        {{quiz.title}}
+                    </mat-option>
+                </mat-select>
+                
+            </mat-form-field>
 
-<div *ngIf="isHost">
-    <label for="quizSelect">select quiz</label>
-    <select id="quizSelect" [(ngModel)]="selectedQuizId">
-        <option *ngFor="let quiz of quizzes"
-                [value]="quiz.id">
-            {{quiz.title}}
-        </option>
-    </select>
-    <button (click)="startGame()">START GAME</button>
-</div>
+            <button class="flex-item" mat-button (click)="startGame()">START GAME</button>
+        </div>
+        <div>
+            <label>Users joined: </label>
+            <mat-list role="list">
+                <ng-container *ngFor="let user of users">
+                   <mat-list-item *ngIf="!user.isHost">
+                        <p>{{user.name}}</p>
+                   </mat-list-item>
+                </ng-container>
+            </mat-list>
+        </div>
+    </mat-card-content>
+</mat-card>
 
-<ul>
-    <ng-container *ngFor="let user of users">
-        <li *ngIf="!user.isHost">
-            <p>{{user.name}}</p>
-        </li>
-    </ng-container>
-</ul>
+<!-- <h3 *ngIf="isHost">you are the host</h3> -->
+
+
 

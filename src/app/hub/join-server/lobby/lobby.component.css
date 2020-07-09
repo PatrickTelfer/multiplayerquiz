@@ -1,7 +1,24 @@
-p {
-    font-size: 2em;
-}
+
 
 li {
     color: white;
+}
+
+button {
+    background-color: palevioletred;
+    margin: 1em;
+}
+
+.flex {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+
+
+mat-card {
+    margin: 1em;
+    /* max-width: 400px; */
+    width:  50%;
+    margin: auto;
 }

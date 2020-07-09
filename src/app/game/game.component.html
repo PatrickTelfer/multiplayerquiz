@@ -51,7 +51,7 @@
     </div>
 </div>
 
-<div *ngIf="!isHost()" class="width100 height100">
+<div *ngIf="!isHost() && (isAnswerState() || isQuestionState())" class="width100 height100">
     <div *ngIf="isQuestionState()" class="gridContainer">
         <button (click)="onAnswer(0)" class="a">A</button>
         <button (click)="onAnswer(1)" class="b">B</button>
@@ -90,5 +90,6 @@
 </div> --> 
 
 <div *ngIf="isFinalState()">
+    <a routerLink="/lobby">Return to lobby</a>
     <h2>Game over!</h2>
 </div>
