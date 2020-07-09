@@ -60,10 +60,10 @@
     </div>
 
     <div *ngIf="isAnswerState()" class="gridContainer">
-        <button disabled [ngClass]="{'right': answer == 0, 'wrong': answer != 0}">A</button>
-        <button disabled [ngClass]="{'right': answer == 1, 'wrong': answer != 1}">B</button>
-        <button disabled [ngClass]="{'right': answer == 2, 'wrong': answer != 2}">C</button>
-        <button disabled [ngClass]="{'right': answer == 3, 'wrong': answer != 3}">D</button>
+        <button disabled [ngClass]="{'right': answer == 0, 'wrong': answer != 0, 'youpicked': (answer != yourAnswer && yourAnswer == 0)}">A</button>
+        <button disabled [ngClass]="{'right': answer == 1, 'wrong': answer != 1, 'youpicked':  (answer != yourAnswer && yourAnswer == 1)}">B</button>
+        <button disabled [ngClass]="{'right': answer == 2, 'wrong': answer != 2, 'youpicked':  (answer != yourAnswer && yourAnswer == 2)}">C</button>
+        <button disabled [ngClass]="{'right': answer == 3, 'wrong': answer != 3, 'youpicked':  (answer != yourAnswer && yourAnswer == 3)}">D</button>
     </div>
 </div>
 <!-- 

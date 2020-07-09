@@ -36,6 +36,10 @@ mat-card-content {
     background-color: whitesmoke;
 }
 
+.youpicked {
+    background-color: red;
+}
+
 .right {
     background-color:  lightgreen;
 }

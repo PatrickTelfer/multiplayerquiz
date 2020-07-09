@@ -18,6 +18,7 @@ export class HostService {
   totalPlayers: number;
   uniqueId: string;
   quiz: Quiz;
+  localUsers: any[];
   constructor(
     private socket: Socket, 
     private UserService: UserService,
@@ -25,6 +26,7 @@ export class HostService {
     private http: HttpClient) {
       
       this.socket.on('uniqueId', (id) => {
+        console.log("in host service with unique id", id);
         this.uniqueId = id;
       })
 
@@ -43,6 +45,8 @@ export class HostService {
 
       this.socket.on('users', (users) => {
         this.UserService.setUsers(users);
+        this.localUsers = users;
+        // console.log(this.localUsers);
       });
 
       this.socket.on('startgameHost', (totalPlayers) => {
@@ -51,11 +55,28 @@ export class HostService {
       });
 
       this.socket.on('tellHostAnswer', answerData => {
+        let ans = answerData.answer;
+        let id = answerData.id;
+
+        console.log('telling host answer', answerData);
+        console.log(this.localUsers);
+
+        for (let i = 0; i < this.localUsers.length; i++) {
+          if (this.localUsers[i]._id == id) {
+            this.localUsers[i].answer = ans;
+          }
+        }
+
         this.socket.emit('hostAnswer', answerData);
       })
 
 
     });
+  }
+
+  tellPlayersAnswers() {
+    console.log('telling all players answers' ,this.localUsers);
+    this.socket.emit('all players answers', this.localUsers);
   }
 
   connect(user) {

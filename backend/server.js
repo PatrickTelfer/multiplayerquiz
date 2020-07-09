@@ -86,13 +86,24 @@ io.on('connection' , (socket) => {
         socket.join(user.joinId);
         currentRoomId = user.joinId;
 
-        io.to(socket.id).emit('uniqueId', user._id);
-
         lobbyController.addUserTolobby(user.joinId, user).then(l => {
           lobbyController.getlobby(user.joinId).then(lobby => {
+            // console.log("lobby",lobby);
             io.to(user.joinId).emit('users', lobby.users);
+
+
+            for (let i = 0; i < lobby.users.length; i++) {
+              if (lobby.users[i].uniqueId == user.uniqueId) {
+                io.to(socket.id).emit('uniqueId', lobby.users[i]._id);
+              }
+            }
           })
         });
+
+        lobbyController.getlobby(user.joinId).then(lobby => {
+          
+          
+        })
         
     });
 
@@ -104,7 +115,7 @@ io.on('connection' , (socket) => {
     if(currentUser.isHost) {
       lobbyController.getlobby(currentRoomId).then((lobby) => {
         lobbyUsers = lobby.users;
-        console.log(lobbyUsers);
+        // console.log(lobbyUsers);
         for (let i = 0; i < lobbyUsers.length; i++) {
           if(lobbyUsers[i].isHost == false) {
             // lobbyUsers[i].score = 0;
@@ -145,12 +156,31 @@ io.on('connection' , (socket) => {
   });
 
   socket.on('answer', (answerData) => {
-    socket.to(currentRoomId).emit('tellHostAnswer', answerData);
+
+    let data = {
+      id: answerData.id,
+      answer: answerData.answerIndex
+    }
+    socket.to(currentRoomId).emit('tellHostAnswer', data);
   });
 
   socket.on('updateAnswerForAllPlayers', (answerIndex) => {
     socket.to(currentRoomId).emit('updateAnswer', answerIndex);
   });
+
+  socket.on('all players answers', allUserData => {
+    console.log("**********")
+    let answerData = [];
+    for (let i = 0; i < allUserData.length; i++) {
+      let data = {
+        id: allUserData[i]._id,
+        answer: allUserData[i].answer
+      }
+      answerData.push(data);
+    }
+    io.to(currentRoomId).emit('your answer', answerData);
+    
+  })
 
   socket.on('nextquestion', () => {
     io.to(currentRoomId).emit('updateState', "question");

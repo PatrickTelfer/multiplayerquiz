@@ -39,7 +39,7 @@ export class CreateQuizComponent implements OnInit {
         });
       } else {
         this.increaseQuizLength();
-        console.log('create mode');
+        // console.log('create mode');
       }
     })
 
@@ -76,7 +76,7 @@ export class CreateQuizComponent implements OnInit {
       this.quizService.updateQuiz(this.id, newQuiz);
     }
 
-    console.log(this.model);
+    // console.log(this.model);
    
     alert('quiz change success!');
     // quizForm.form.reset();

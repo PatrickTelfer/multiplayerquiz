@@ -17,8 +17,10 @@ export class GameComponent implements OnInit, OnDestroy {
   private questionSub: Subscription;
   private answerSub: Subscription;
   private gameState: GameState;
+  private yourAnswerSub: Subscription;
   private question: QuizQuestion;
   private answer: number;
+  private yourAnswer: number;
 
 
   constructor(private gameStateService: GamestateService, private hostService: HostService) { }
@@ -38,7 +40,7 @@ export class GameComponent implements OnInit, OnDestroy {
 
     this.questionSub = this.gameStateService.getQuestionUpdateListener()
       .subscribe((q: QuizQuestion) => {
-        console.log('new question!', q);
+        // console.log('new question!', q);
         this.question = q;
       })
 
@@ -47,10 +49,16 @@ export class GameComponent implements OnInit, OnDestroy {
         this.answer = answer;
       })
 
+      this.yourAnswerSub = this.gameStateService.getYourAnswerUpdateListener()
+        .subscribe((yourAnswer: number) => {
+          this.yourAnswer = yourAnswer;
+          console.log(yourAnswer);
+        });
+
   }
 
   onAnswer(index){
-    console.log("answering, ", index)
+    // console.log("answering, ", index)
     this.gameStateService.answerQuestion(index);
     this.gameState = GameState.Answer;
   }
@@ -63,6 +71,7 @@ export class GameComponent implements OnInit, OnDestroy {
     this.stateSub.unsubscribe();
     this.questionSub.unsubscribe();
     this.answerSub.unsubscribe();
+    this.yourAnswerSub.unsubscribe();
   }
 
   isHost() {

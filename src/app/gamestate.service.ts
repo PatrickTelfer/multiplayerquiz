@@ -16,6 +16,7 @@ export class GamestateService {
   private questionUpdate = new Subject<QuizQuestion>();
   private stateUpdate = new Subject<GameState>();
   private answerUpdate = new Subject<number>();
+  private yourAnswerUpdate = new Subject<number>();
   private quiz: Quiz;
   private currentQuestion: QuizQuestion;
   private currentQuestionIndex: number;
@@ -50,6 +51,7 @@ export class GamestateService {
           }
           this.totalAnswered = 0;
             this.socket.emit('allPlayersAnswered');
+            this.hostService.tellPlayersAnswers();
 
         }
       }
@@ -58,6 +60,17 @@ export class GamestateService {
 
     this.socket.on('updateAnswer', (answer) => {
       this.answerUpdate.next(answer);
+    });
+
+    this.socket.on('your answer', (myAnswer) => {
+      console.log('your answer', myAnswer);
+      for (let i = 0; i < myAnswer.length; i++) {
+        if (myAnswer[i].id == this.hostService.uniqueId) {
+          this.yourAnswerUpdate.next(myAnswer[i].answer);
+          console.log('here was my answer' , myAnswer[i].answer);
+        }
+      }
+     
     })
 
 
@@ -100,6 +113,10 @@ export class GamestateService {
   getAnswerUpdateListener() {
     return this.answerUpdate.asObservable();
   }
+  
+  getYourAnswerUpdateListener() {
+    return this.yourAnswerUpdate.asObservable();
+  }
 
   answerQuestion(answer: number) {
     console.log(this.hostService.uniqueId);
@@ -107,6 +124,7 @@ export class GamestateService {
       id: this.hostService.uniqueId,
       answerIndex: answer
     }
+
     this.socket.emit('answer', answerData);
   }
 

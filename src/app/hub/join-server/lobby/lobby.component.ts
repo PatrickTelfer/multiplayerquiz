@@ -51,7 +51,7 @@ export class LobbyComponent implements OnInit, OnDestroy {
   }
 
   startGame() {
-    console.log('starting game!');
+    // console.log('starting game!');
     if (this.selectedQuizId) {
       this.HostService.startGame(this.selectedQuizId);
     } else {

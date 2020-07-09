@@ -19,8 +19,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import {MatCardModule} from '@angular/material/card';
 import {MatButtonModule} from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import {MatSelectModule} from '@angular/material/select'
 import {MatInputModule} from '@angular/material'
 import { GameComponent } from './game/game.component';
+import {MatListModule} from '@angular/material/list';
  
 const config: SocketIoConfig = { url: 'https://realtimequiz.herokuapp.com/', options: {} };
 
@@ -47,6 +49,8 @@ const config: SocketIoConfig = { url: 'https://realtimequiz.herokuapp.com/', opt
     MatButtonModule,
     MatFormFieldModule,
     MatInputModule,
+    MatSelectModule,
+    MatListModule
   ],
   providers: [],
   bootstrap: [AppComponent]
